@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#147a42">
+  <title>Mapa da loja | Smart Guide</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mapa.css">
+</head>
+<body data-page="map">
+  <div id="site-header"></div>
+  <main class="page-shell">
+    <section class="page-intro">
+      <span class="eyebrow">ENCONTRE NA LOJA</span>
+      <h1>Mapa da Loja</h1>
+      <p>Veja em qual corredor está o produto que você procura.</p>
+    </section>
+    <section class="map-search panel">
+      <label class="search-field"><span aria-hidden="true">⌕</span><span class="sr-only">Pesquisar produto</span><input id="map-search" type="search" placeholder="Digite o nome do produto..."></label>
+      <div id="map-search-results" class="map-search-results" role="listbox" aria-label="Produtos encontrados"></div>
+    </section>
+    <section class="map-layout">
+      <div class="store-map panel">
+        <div class="map-top-label"><span>ENTRADA</span><span>ÁREA DEMONSTRATIVA</span></div>
+        <div class="map-floor" id="map-floor" aria-label="Representação esquemática dos corredores">
+          <div class="map-route" aria-hidden="true"></div>
+          <div class="map-aisle" data-aisle="1"><span class="aisle-number">01</span><span class="aisle-name">Pintura</span></div>
+          <div class="map-aisle" data-aisle="2"><span class="aisle-number">02</span><span class="aisle-name">Hidráulica</span></div>
+          <div class="map-aisle" data-aisle="3"><span class="aisle-number">03</span><span class="aisle-name">Elétrica</span></div>
+          <div class="map-aisle" data-aisle="4"><span class="aisle-number">04</span><span class="aisle-name">Ferramentas</span></div>
+          <div class="map-aisle" data-aisle="5"><span class="aisle-number">05</span><span class="aisle-name">Jardim</span></div>
+          <div class="map-aisle" data-aisle="6"><span class="aisle-number">06</span><span class="aisle-name">Organização</span></div>
+        </div>
+        <div class="map-legend"><span><i class="legend-dot route-dot"></i> Caminho demonstrativo</span><span><i class="legend-dot product-dot"></i> Localização do produto</span></div>
+        <p class="map-note">Representação esquemática. A localização exibida depende dos dados informados pela loja.</p>
+      </div>
+      <aside id="location-panel" class="location-panel panel" aria-live="polite">
+        <div class="empty-location"><span aria-hidden="true">⌖</span><h2>Encontre um produto</h2><p>Pesquise pelo nome para consultar sua localização na loja.</p></div>
+      </aside>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/demo-data.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/list-store.js" defer></script>
+  <script src="js/shared.js" defer></script>
+  <script src="js/mapa.js" defer></script>
+</body>
+</html>

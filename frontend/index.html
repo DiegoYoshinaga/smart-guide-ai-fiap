@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#147a42">
+  <meta name="description" content="Encontre produtos e organize suas compras com o Smart Guide.">
+  <title>Assistente | Smart Guide</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="assistant">
+  <div id="site-header"></div>
+  <main class="page-shell assistant-page">
+    <section class="welcome-banner">
+      <div>
+        <span class="eyebrow">SEU GUIA DENTRO DA LOJA</span>
+        <h1>Olá! O que você está planejando?</h1>
+        <p>Conte o que precisa fazer e eu ajudo a encontrar os produtos certos para o seu projeto.</p>
+      </div>
+      <div class="welcome-mark" aria-hidden="true">SG</div>
+    </section>
+
+    <section class="chat-card panel" aria-label="Conversa com o assistente">
+      <div class="chat-heading">
+        <div class="assistant-avatar" aria-hidden="true">✦</div>
+        <div><h2>Assistente Smart Guide</h2><p><span class="status-dot"></span> Pronto para ajudar</p></div>
+      </div>
+      <div class="chat-log" id="chat-log" role="log" aria-live="polite" aria-relevant="additions">
+        <article class="chat-message assistant-message">
+          <div class="message-avatar" aria-hidden="true">✦</div>
+          <div class="message-content"><p>Oi! Posso ajudar você a encontrar materiais e ferramentas para o seu projeto. O que gostaria de fazer?</p></div>
+        </article>
+      </div>
+      <div class="suggestion-area">
+        <p class="suggestion-label">EXPERIMENTE PERGUNTAR</p>
+        <div class="suggestions">
+          <button class="suggestion-chip" type="button">Como consertar uma torneira vazando?</button>
+          <button class="suggestion-chip" type="button">O que preciso para pintar uma parede?</button>
+          <button class="suggestion-chip" type="button">Quais materiais preciso para instalar uma prateleira?</button>
+          <button class="suggestion-chip" type="button">Preciso de ferramentas para montar um móvel.</button>
+        </div>
+      </div>
+      <form class="chat-form" id="chat-form">
+        <label class="sr-only" for="chat-input">Digite sua pergunta</label>
+        <input id="chat-input" name="message" type="text" maxlength="500" placeholder="Descreva seu projeto ou o que você precisa..." autocomplete="off" required>
+        <button class="button button-primary send-button" type="submit"><span>Enviar</span><span aria-hidden="true">➤</span></button>
+      </form>
+      <p class="chat-disclaimer">Assistente demonstrativo com respostas predefinidas. Consulte a disponibilidade na loja.</p>
+    </section>
+  </main>
+  <div id="site-footer"></div>
+  <script src="js/demo-data.js" defer></script>
+  <script src="js/api.js" defer></script>
+  <script src="js/list-store.js" defer></script>
+  <script src="js/shared.js" defer></script>
+  <script src="js/chat.js" defer></script>
+</body>
+</html>

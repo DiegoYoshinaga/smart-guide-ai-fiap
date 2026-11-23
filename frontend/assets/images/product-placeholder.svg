@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+  <rect width="640" height="420" rx="24" fill="#eef4ef"/>
+  <path d="M264 139h112v145H264z" fill="#d2e5d7"/>
+  <path d="M280 165h80v92h-80z" fill="#198b4d" opacity=".8"/>
+  <circle cx="320" cy="210" r="20" fill="#fff" opacity=".9"/>
+  <text x="320" y="330" fill="#718078" font-family="Arial,sans-serif" font-size="18" text-anchor="middle">Imagem do produto</text>
+</svg>
