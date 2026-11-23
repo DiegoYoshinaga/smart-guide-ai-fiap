@@ -104,23 +104,93 @@
         return typeof item === 'string' ? item : (item.name || item.nome || '');
       }).filter(Boolean);
     },
-    sendChatMessage: function (message) {
-      return request('/api/chat', {
+    sendChatMessage: async function (message) {
+      const data = await request('/api/chat', {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({ mensagem: message, message: message })
       });
+      return data;
     },
     getProductLocation: async function (id) {
       const data = await request('/api/mapa/produto/' + encodeURIComponent(id));
       return normalizeProduct(data.product || data.produto || data);
     },
-    saveShoppingList: function (items) {
-      return request('/api/lista-compras', {
+    createShoppingList: async function (nome) {
+      const data = await request('/api/lista-compras', {
         method: 'POST',
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify(items)
+        body: JSON.stringify({ nome: nome || 'Minha lista de compras' })
       });
+      return data;
+    },
+    getShoppingLists: async function () {
+      const data = await request('/api/lista-compras');
+      return unwrapList(data, ['content', 'produtos', 'items', 'lista-compras', 'listas']);
+    },
+    getShoppingList: async function (id) {
+      return request('/api/lista-compras/' + encodeURIComponent(id));
+    },
+    getShoppingItems: async function (listId) {
+      return request('/api/lista-compras/' + encodeURIComponent(listId) + '/itens');
+    },
+    addShoppingItem: async function (listId, produtoId, quantidade) {
+      const data = await request('/api/lista-compras/' + encodeURIComponent(listId) + '/itens', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ produtoId: produtoId, quantidade: quantidade })
+      });
+      return data;
+    },
+    updateShoppingItem: async function (listId, itemId, quantidade) {
+      const data = await request('/api/lista-compras/' + encodeURIComponent(listId) + '/itens/' + encodeURIComponent(itemId), {
+        method: 'PUT',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ quantidade: quantidade })
+      });
+      return data;
+    },
+    removeShoppingItem: async function (listId, itemId) {
+      const data = await request('/api/lista-compras/' + encodeURIComponent(listId) + '/itens/' + encodeURIComponent(itemId), {
+        method: 'DELETE'
+      });
+      return data;
+    },
+    removeProductFromShoppingList: async function (listId, produtoId) {
+      const data = await request('/api/lista-compras/' + encodeURIComponent(listId) + '/produtos/' + encodeURIComponent(produtoId), {
+        method: 'DELETE'
+      });
+      return data;
+    },
+    clearShoppingList: async function (listId) {
+      const data = await request('/api/lista-compras/' + encodeURIComponent(listId) + '/itens', {
+        method: 'DELETE'
+      });
+      return data;
+    },
+    calculateShoppingTotal: async function (listId) {
+      const data = await request('/api/lista-compras/' + encodeURIComponent(listId) + '/total');
+      return data;
+    },
+    saveShoppingList: async function (items) {
+      const lista = await request('/api/lista-compras', {
+        method: 'POST',
+        headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: 'Lista do assistente' })
+      });
+      const listId = lista && lista.id;
+      const produtos = (items || []).map(function (item) { return item && item.product; });
+      for (let index = 0; index < produtos.length; index += 1) {
+        const produto = produtos[index];
+        if (produto && produto.id !== undefined) {
+          await request('/api/lista-compras/' + listId + '/itens', {
+            method: 'POST',
+            headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify({ produtoId: produto.id, quantidade: (items[index] && items[index].quantity) || 1 })
+          });
+        }
+      }
+      return lista;
     }
   };
 }());

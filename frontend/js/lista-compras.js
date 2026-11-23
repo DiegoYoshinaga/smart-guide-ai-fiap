@@ -30,9 +30,9 @@
     decrease.textContent = '−';
     decrease.setAttribute('aria-label', 'Diminuir quantidade');
     decrease.disabled = entry.quantity <= 1;
-    decrease.addEventListener('click', function () {
-      if (entry.quantity <= 1) window.SmartGuideList.remove(product.id);
-      else window.SmartGuideList.setQuantity(product.id, entry.quantity - 1);
+    decrease.addEventListener('click', async function () {
+      if (entry.quantity <= 1) await window.SmartGuideList.remove(product.id);
+      else await window.SmartGuideList.setQuantity(product.id, entry.quantity - 1);
     });
     const amount = document.createElement('span');
     amount.className = 'quantity-value';
@@ -41,7 +41,7 @@
     increase.type = 'button';
     increase.textContent = '+';
     increase.setAttribute('aria-label', 'Aumentar quantidade');
-    increase.addEventListener('click', function () { window.SmartGuideList.setQuantity(product.id, entry.quantity + 1); });
+    increase.addEventListener('click', async function () { await window.SmartGuideList.setQuantity(product.id, entry.quantity + 1); });
     quantity.append(decrease, amount, increase);
     details.append(title, location, price, quantity);
 
@@ -56,7 +56,7 @@
     remove.type = 'button';
     remove.className = 'remove-item';
     remove.textContent = 'Remover';
-    remove.addEventListener('click', function () { window.SmartGuideList.remove(product.id); });
+    remove.addEventListener('click', async function () { await window.SmartGuideList.remove(product.id); });
     end.append(subtotal, remove);
     item.append(image, details, end);
     return item;
@@ -140,9 +140,9 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    clearButton.addEventListener('click', function () {
+    clearButton.addEventListener('click', async function () {
       if (!window.SmartGuideList.getCount()) return;
-      if (window.confirm('Deseja remover todos os produtos da lista?')) window.SmartGuideList.clear();
+      if (window.confirm('Deseja remover todos os produtos da lista?')) await window.SmartGuideList.clear();
     });
     window.addEventListener('smartguide:listchange', render);
     render();

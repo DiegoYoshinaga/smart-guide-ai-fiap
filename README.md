@@ -172,6 +172,76 @@ http://localhost:8080
 
 *Importante: a execução completa depende da configuração do banco de dados e da implementação dos endpoints REST.*
 
+## ✅ Funcionalidades implementadas
+
+### Backend
+
+- API REST Spring Boot com as camadas controller, service, repository, model, dto e config.
+- Endpoints implementados:
+
+| Método | Rota | Finalidade |
+|---|---|---|
+| GET | `/api/status` | Verificação de status da API |
+| GET | `/api/produtos` | Listagem, com filtros `nome` e `categoria` |
+| GET | `/api/produtos/{id}` | Detalhes do produto |
+| GET | `/api/produtos/{id}/complementares` | Produtos complementares |
+| GET | `/api/categorias` | Listagem de categorias |
+| GET | `/api/mapa/produto/{id}` | Localização do produto no mapa |
+| POST | `/api/chat` | Mensagem do assistente e recomendações |
+| POST | `/api/lista-compras` | Criar lista de compras |
+| GET | `/api/lista-compras` | Listar listas |
+| GET | `/api/lista-compras/{id}` | Consultar lista e itens |
+| GET | `/api/lista-compras/{id}/itens` | Consultar itens |
+| GET | `/api/lista-compras/{id}/total` | Valor total da lista |
+| POST | `/api/lista-compras/{id}/itens` | Adicionar produto |
+| PUT | `/api/lista-compras/{id}/itens/{idItem}` | Atualizar quantidade |
+| DELETE | `/api/lista-compras/{id}/itens/{idItem}` | Remover item |
+| DELETE | `/api/lista-compras/{id}/produtos/{idProduto}` | Remover produto da lista |
+| DELETE | `/api/lista-compras/{id}/itens` | Limpar lista |
+
+### Frontend
+
+- Consumo da API REST via Fetch API centralizado em `frontend/js/api.js`.
+- Assistente com identificação de palavras-chave e recomendações.
+- Catálogo com busca e filtro por categoria.
+- Mapa simplificado com localização dos produtos.
+- Lista de compras com quantidades e totalização.
+
+## 🔌 Integração frontend ↔ backend
+
+- O frontend consome os endpoints do backend em `http://localhost:8080`.
+- Em execução, o backend responde e o frontend não utiliza dados simulados.
+
+## ⚙️ Como executar o backend
+
+```bash
+cd backend
+mvn spring-boot:run
+```
+
+Perfil padrão: `demo` (banco local em memória H2, sem credenciais).
+
+Perfil para Oracle Database:
+
+```bash
+export DB_URL='jdbc:oracle:thin:@localhost:1521/XEPDB1'
+export DB_USERNAME='seu_usuario'
+export DB_PASSWORD='sua_senha'
+
+cd backend
+mvn spring-boot:run -Dspring-boot.run.profiles=oracle
+```
+
+## 🗄️ Configuração Oracle
+
+Documento completo em [`ORACLE_SETUP.md`](ORACLE_SETUP.md).
+
+## ⏳ Pendências para a entrega
+
+- Validação final com Oracle Database real (CRUD, relacionamentos, persistência).
+- Configuração das credenciais do banco da FIAP.
+- Execução do script SQL de forma definitiva.
+
 ## 🗄️ Estrutura do banco de dados
 
 O banco de dados foi planejado para armazenar as informações necessárias ao funcionamento do sistema.

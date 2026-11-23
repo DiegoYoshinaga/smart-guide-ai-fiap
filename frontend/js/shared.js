@@ -96,9 +96,9 @@
     window.setTimeout(function () { toast.remove(); }, 3200);
   }
 
-  function addProduct(product) {
+  async function addProduct(product) {
     try {
-      window.SmartGuideList.add(product);
+      await window.SmartGuideList.add(product);
       notify('Produto adicionado à sua lista.');
     } catch (error) {
       console.error('Não foi possível adicionar o produto à lista.', error);
