@@ -110,6 +110,9 @@
         headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
         body: JSON.stringify({ mensagem: message, message: message })
       });
+      if (data && Array.isArray(data.produtos)) {
+        return Object.assign({}, data, { produtos: data.produtos.map(normalizeProduct) });
+      }
       return data;
     },
     getProductLocation: async function (id) {
