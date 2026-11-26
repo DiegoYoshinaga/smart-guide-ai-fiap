@@ -10,7 +10,7 @@
   let categoriesWarning = '';
 
   function statusSuffix() {
-    return [isDemo ? 'catálogo demonstrativo local' : '', categoriesWarning].filter(Boolean).join(' · ');
+    return categoriesWarning;
   }
 
   function showEmpty(message) {
@@ -105,9 +105,7 @@
 
   async function initialize() {
     status.textContent = 'Carregando produtos...';
-    const result = await window.SmartGuideUI.loadProductsWithDemo(function () {
-      status.textContent = 'Backend indisponível — exibindo o catálogo demonstrativo local.';
-    });
+    const result = await window.SmartGuideUI.loadProductsWithDemo();
     allProducts = result.products;
     isDemo = result.isDemo;
     try {

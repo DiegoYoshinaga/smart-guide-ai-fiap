@@ -202,12 +202,7 @@
     document.addEventListener('click', function (event) {
       if (!event.target.closest('.map-search')) results.classList.remove('is-open');
     });
-    window.SmartGuideUI.loadProductsWithDemo(function () {
-      const warning = document.createElement('p');
-      warning.className = 'status-banner';
-      warning.textContent = 'Backend indisponível — exibindo localizações demonstrativas do catálogo local.';
-      document.querySelector('.map-search').after(warning);
-    }).then(function (result) {
+    window.SmartGuideUI.loadProductsWithDemo().then(function (result) {
       products = result.products;
       isDemo = result.isDemo;
       renderAisles();
