@@ -32,13 +32,18 @@
     }, 0);
   }
 
+  let backendOnline = true;
+
   async function criarLista() {
-    const lista = await window.SmartGuideAPI.createShoppingList('Minha lista de compras');
-    const listId = lista && lista.id ? lista.id : null;
-    const state = readState();
-    state.listId = listId;
-    writeState(state);
-    return listId;
+    if (!backendOnline) return null;
+    try {
+      const lista = await window.SmartGuideAPI.createShoppingList('Minha lista de compras');
+      return lista && lista.id ? lista.id : null;
+    } catch (error) {
+      backendOnline = false;
+      console.warn('Backend indisponível; a lista será mantida localmente.', error);
+      return null;
+    }
   }
 
   async function sincronizar(listId, produto, quantidadeFinal) {
